@@ -5,9 +5,10 @@ import EventList from "./EventList";
 const EventCalendarContainer = async ({
   searchParams,
 }: {
-  searchParams: { [keys: string]: string | undefined };
+  searchParams: { [keys: string]: string | undefined } | Promise<{ [keys: string]: string | undefined }>;
 }) => {
-  const { date } = searchParams;
+  const resolvedSearchParams = await searchParams;
+  const { date } = resolvedSearchParams || {};
   return (
     <div className="bg-white p-4 rounded-md">
       <EventCalendar />

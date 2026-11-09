@@ -11,10 +11,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const SingleTeacherPage = async ({
-  params: { id },
+  params,
 }: {
-  params: { id: string };
+  params: { id: string } | Promise<{ id: string }>;
 }) => {
+  const { id } = await params;
   const { sessionClaims } = auth();
   const role = (sessionClaims?.metadata as { role?: string })?.role;
 

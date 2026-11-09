@@ -11,16 +11,25 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const EventCalendar = () => {
   const [value, onChange] = useState<Value>(new Date());
+  const [isMounted, setIsMounted] = useState(false);
 
   const router = useRouter();
 
   useEffect(() => {
-    if (value instanceof Date) {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isMounted && value instanceof Date) {
       router.push(`?date=${value}`);
     }
-  }, [value, router]);
+  }, [value, router, isMounted]);
 
-  return <Calendar onChange={onChange} value={value} />;
+  if (!isMounted) {
+    return <div className="h-[280px] flex items-center justify-center text-gray-300">Loading calendar...</div>;
+  }
+
+  return <Calendar onChange={onChange} value={value} locale="en-US" />;
 };
 
 export default EventCalendar;

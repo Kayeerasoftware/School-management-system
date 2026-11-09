@@ -11,7 +11,7 @@ import {
   teacherSchema,
   TeacherSchema,
 } from "@/lib/formValidationSchemas";
-import { useFormState } from "react-dom";
+import { useFormState } from "@/lib/useActionState";
 import {
   createStudent,
   createTeacher,
